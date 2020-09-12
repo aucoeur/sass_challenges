@@ -1,0 +1,157 @@
+$border-size: 5px;
+$size: 400px; 
+$size-small: 20px;
+$color-light: hsl(0, 0%, 85%);
+$color-dark: hsl(0, 0%, 20%);
+$color-accent: orangered;
+
+body {
+    height: 100%;
+    margin: $size-small;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+    background-color: $color-light;
+}
+
+.main {
+    height: $size;
+    width: $size * 0.75;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .frame {
+        position: absolute;
+        width: $size * 0.5;
+        height: $size * 0.5;
+        border: $border-size * 2.25 solid black;
+        border-radius: 10%;
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+        z-index: 100;
+        transform: translate(-15px, 0px);
+
+        .inner {
+            width: inherit;
+            height: $size-small * 0.75;
+            position: absolute;
+            background-color: transparent;
+            transform: translate(0, 25px);
+
+            svg {
+                stroke: $color-accent;
+                fill: transparent;
+                stroke-width: 4;
+                & > path {
+                    stroke-dasharray: 634.277;
+                    /* stroke-dashoffset: 634.277; */
+                    animation: draw linear 8000ms forwards;
+                    animation-direction: forwards;
+                    }
+            }
+
+            .bars {
+                width: $size;
+                height:$size-small * 0.75;
+                position: absolute;
+                background-color: transparent;
+                border-top: $border-size solid $color-dark;
+                border-bottom: $border-size solid $color-dark;
+                border-left: 0px;
+                border-right: 0px;
+                /* animation: raise 8s steps(8, end) reverse; */
+                animation: move linear 8000ms;
+                animation-direction: reverse;
+                offset-path: path("M 102 -158 V -148.4 H 116.4 Q 121.2 -143.6 116.4 -138.8 H 82.8 Q 78 -134 82.8 -129.2 H 154.8 Q 159.6 -124.4 154.8 -119.6 H 44.4 Q 39.6 -114.8 44.4 -110 H 154.8 Q 159.6 -105.2 154.8 -100.4 H 44.4 Q 39.6 -95.6 44.4 -90.8 H 154.8 Q 159.6 -86 154.8 -81.2 H 42");
+                offset-rotate: 0deg;
+                z-index: -100;
+            }
+        
+            .hotend {
+                width: $size-small * 2.25;
+                height: $size-small * 2.25;
+                background-color: black;
+                position: absolute;
+                /* transform: translate(78px, -10px); */
+                animation: move linear 8000ms;
+                animation-direction: reverse;
+                offset-path: path("M 102 -158 V -140.4 H 116.4 Q 121.2 -143.6 116.4 -138.8 H 82.8 Q 78 -134 82.8 -129.2 H 154.8 Q 159.6 -124.4 154.8 -119.6 H 44.4 Q 39.6 -114.8 44.4 -110 H 154.8 Q 159.6 -105.2 154.8 -100.4 H 44.4 Q 39.6 -95.6 44.4 -90.8 H 154.8 Q 159.6 -86 154.8 -81.2 H 42");
+                offset-anchor: center;
+                offset-rotate: 0deg;
+            }
+
+            .hotend:before {
+                content: '';
+                width: $size-small * 1.5;
+                height: $size-small * 1.5;
+                position: absolute;
+                background-color: hsl(0, 0%, 35%);
+                border: 2px dotted $color-light;
+                border-radius: 50%;
+                transform: translate(5px, 5px);
+            }
+
+            .hotend:after {
+                content: '';
+                width: $size-small * 1.5;
+                height: $size-small;
+                position: absolute;
+                background-color: $color-dark;
+                clip-path: polygon(
+                    0% 20%, 15% 20%, 
+                    15% 0%, 85% 0%, 
+                    85% 25%, 100% 25%, 
+                    100% 60%, 80% 65%,
+                    65% 90%, 35% 90%, 
+                    20% 65% , 0% 60%);
+                transform: translate(7.5px, 45px);
+            }
+        }
+
+        .bed {
+            width: $size * 0.375;
+            position: absolute;
+            border-top: $border-size * 2 solid $color-dark;
+            border-bottom: $border-size solid transparent;
+            border-left: $border-size solid transparent;
+            border-right: $border-size solid transparent;
+            transform: translate(20px, 175px);
+        }
+    }
+
+    .spool {
+        position: absolute;
+        height: $size * 0.3125;
+        width: $size-small * 1.5;
+        border-top: $border-size solid  $color-light;
+        border-left: $border-size solid black;
+        border-right: $border-size solid black;
+        border-bottom: $border-size solid  $color-light;
+        background-color: $color-accent;
+        transform: translate(120px, 5px)
+    }
+
+    @keyframes raise {
+        from {
+            transform: translate(0, 25px);
+        }
+        to {
+            transform: translate(0, 90px);
+        }
+    }
+
+    @keyframes move {
+    100% {
+        offset-distance: 100%;
+    }
+    }
+
+    @keyframes draw {
+    from {
+        stroke-dashoffset: 634.277;
+    }
+    to {
+        stroke-dashoffset: 1268.554;
+    }
+    }
+}
