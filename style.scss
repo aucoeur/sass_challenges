@@ -22,14 +22,14 @@ body {
   border: $border-size solid;
   position: relative;
 
-    /* Style all of the child divs */
+    // Petals
     & > div {
     position: absolute;
     border-radius: 0 70% 40% 70%;
     border: $border-size solid;
     width: $size * 0.6;
     height: $size * 0.6;
-    /* Position these in the center */
+    // Center
     left: $space;
     top: $space * 5;
     /* Rotate 45 deg points the point at the top */
@@ -42,50 +42,67 @@ body {
     to their starting positions when the animation ends! */
     animation-fill-mode: forwards;
     }
+
+    @for $i from 1 through $petals {
+        $hue: ($i - 1) * 60;
+        $angle: ($i - 2) * 45deg;
+        
+        // Petal Colors
+        & > div:nth-child(#{$i}) {
+            animation-name: bloom-#{$i};
+            background-color: hsla($hue, 100%, 50%, 0.21);
+        }
+
+        // Petal Animation
+        @keyframes bloom-#{$i} {
+            0% { transform: rotate(45deg); }
+            100% { transform: rotate($angle); }
+        }
+    }
 }
 
-/* These styles apply to individual children */
+// Petal Colors & Keyframes converted in the nested for loop above
 
-.container > div:nth-child(1) {
-  animation-name: bloom-1;
-  background-color: hsla(0, 100%, 50%, 0.21);
-}
+// .container > div:nth-child(1) {
+//   animation-name: bloom-1;
+//   background-color: hsla(0, 100%, 50%, 0.21);
+// }
 
-.container > div:nth-child(2) {
-  animation-name: bloom-2;
-  background-color: hsla(60, 100%, 50%, 0.21);
-}
+// .container > div:nth-child(2) {
+//   animation-name: bloom-2;
+//   background-color: hsla(60, 100%, 50%, 0.21);
+// }
 
-.container > div:nth-child(3) {
-  background-color: hsla(120, 100%, 50%, 0.21);
-}
+// .container > div:nth-child(3) {
+//   background-color: hsla(120, 100%, 50%, 0.21);
+// }
 
-.container > div:nth-child(4) {
-  animation-name: bloom-4;
-  background-color: hsla(180, 100%, 50%, 0.21);
-}
+// .container > div:nth-child(4) {
+//   animation-name: bloom-4;
+//   background-color: hsla(180, 100%, 50%, 0.21);
+// }
 
-.container > div:nth-child(5) {
-  animation-name: bloom-5;
-  background-color: hsla(240, 100%, 50%, 0.21);
-}
+// .container > div:nth-child(5) {
+//   animation-name: bloom-5;
+//   background-color: hsla(240, 100%, 50%, 0.21);
+// }
 
-@keyframes bloom-1 {
-  0% { transform: rotate(45deg); }
-  100% { transform: rotate(-45deg); }
-}
+// @keyframes bloom-1 {
+//   0% { transform: rotate(45deg); }
+//   100% { transform: rotate(-45deg); }
+// }
 
-@keyframes bloom-2 {
-  0% { transform: rotate(45deg); }
-  100% { transform: rotate(135deg); }
-}
+// @keyframes bloom-2 {
+//   0% { transform: rotate(45deg); }
+//   100% { transform: rotate(135deg); }
+// }
 
-@keyframes bloom-4 {
-  0% { transform: rotate(45deg); }
-  100% { transform: rotate(0deg); }
-}
+// @keyframes bloom-4 {
+//   0% { transform: rotate(45deg); }
+//   100% { transform: rotate(0deg); }
+// }
 
-@keyframes bloom-5 {
-  0% { transform: rotate(45deg); }
-  100% { transform: rotate(90deg); }
-}
+// @keyframes bloom-5 {
+//   0% { transform: rotate(45deg); }
+//   100% { transform: rotate(90deg); }
+// }
